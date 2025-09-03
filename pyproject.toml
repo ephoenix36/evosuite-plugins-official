@@ -1,0 +1,38 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "evosuite-plugins-official"
+version = "0.2.0"
+description = "Official EvoSuite plugin collection: evaluators, mutation operators, sampling strategies"
+authors = [{name = "EvoSuite Team"}]
+license = {text = "MIT"}
+requires-python = ">=3.10"
+dependencies = [
+    "evosuite-core>=0.2,<0.3",
+    "numpy>=1.20",
+    "scipy>=1.7"
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0",
+    "pytest-cov",
+    "black",
+    "isort",
+    "flake8",
+    "mypy"
+]
+ml = ["scikit-learn>=1.0", "torch>=1.12"]
+ast = ["ast-manipulation>=1.0"]
+
+[project.entry-points."evosuite.plugins"]
+rubric_evaluator = "evosuite_plugins.evaluation.rubric:RubricEvaluator"
+heuristic_evaluator = "evosuite_plugins.evaluation.heuristic:HeuristicEvaluator"
+random_mutator = "evosuite_plugins.mutation.random:RandomMutator"
+guided_mutator = "evosuite_plugins.mutation.guided:GuidedMutator"
+diversity_strategy = "evosuite_plugins.sampling.diversity:DiversityStrategy"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
